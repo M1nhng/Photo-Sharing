@@ -1,0 +1,36 @@
+.userdetail-container {
+  padding: 16px;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.userdetail-name {
+  margin-bottom: 12px !important;
+  font-weight: bold !important;
+}
+
+.userdetail-divider {
+  margin-bottom: 16px !important;
+}
+
+.userdetail-info {
+  margin-bottom: 24px !important;
+}
+
+.userdetail-row {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.userdetail-label {
+  font-weight: bold !important;
+  min-width: 120px;
+  flex-shrink: 0;
+}
+
+.userdetail-btn {
+  margin-top: 8px !important;
+}

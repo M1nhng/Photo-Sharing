@@ -1,0 +1,94 @@
+.userphotos-container {
+  padding: 16px;
+  overflow-y: auto;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.userphotos-title {
+  font-weight: bold !important;
+  margin-bottom: 8px !important;
+}
+
+.userphotos-divider {
+  margin-bottom: 16px !important;
+}
+
+.userphotos-stepper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.userphotos-stepper-label {
+  min-width: 100px;
+  text-align: center;
+}
+
+/* Photo card */
+.photo-card {
+  margin-bottom: 24px !important;
+  border-radius: 8px !important;
+}
+
+.photo-img {
+  max-height: 400px;
+  object-fit: contain;
+  background-color: #f5f5f5;
+}
+
+.photo-date {
+  display: block;
+  margin-bottom: 12px !important;
+}
+
+/* Comments */
+.photo-comments-section {
+  margin-top: 12px;
+}
+
+.photo-comments-header {
+  font-weight: bold !important;
+  margin-bottom: 8px !important;
+  margin-top: 4px !important;
+}
+
+.comment-block {
+  padding: 8px 0;
+}
+
+.comment-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.comment-author {
+  font-weight: bold !important;
+}
+
+.comment-author-link {
+  text-decoration: none;
+  color: #1976d2;
+}
+
+.comment-author-link:hover {
+  text-decoration: underline;
+}
+
+.comment-text {
+  margin-left: 4px !important;
+  color: #333;
+}
+
+.comment-divider {
+  margin-top: 8px !important;
+}
+
+.no-comments {
+  margin-top: 8px !important;
+  font-style: italic;
+}
