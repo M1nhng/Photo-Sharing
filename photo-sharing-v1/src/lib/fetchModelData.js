@@ -12,7 +12,11 @@ function fetchModel(url) {
     fetch(url)
       .then((response) => {
         if (!response.ok) {
-          reject(new Error(`Request failed with status ${response.status}: ${response.statusText}`));
+          reject(
+            new Error(
+              `Request failed with status ${response.status}: ${response.statusText}`
+            )
+          );
           return;
         }
         return response.json();

@@ -12,7 +12,7 @@ const express = require("express");
 const path = require("path");
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // Allow cross-origin requests from the React dev server
 app.use((req, res, next) => {
@@ -234,8 +234,24 @@ app.get("/photosOfUser/:id", (req, res) => {
   res.json(userPhotos);
 });
 
+// ---- Serve React Build (for CodeSandbox / production) ----
+// When running with PORT=3000, serve the pre-built React app too.
+const fs = require("fs");
+const buildPath = path.join(__dirname, "build");
+if (fs.existsSync(buildPath)) {
+  app.use(express.static(buildPath));
+  // Return index.html for all non-API routes (React Router support)
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(buildPath, "index.html"));
+  });
+}
+
 app.listen(PORT, () => {
   console.log(`Photo Sharing API server running at http://localhost:${PORT}`);
   console.log(`Test it: http://localhost:${PORT}/test/info`);
   console.log(`User list: http://localhost:${PORT}/user/list`);
+  if (fs.existsSync(buildPath)) {
+    console.log(`App (React build): http://localhost:${PORT}`);
+  }
 });
+
