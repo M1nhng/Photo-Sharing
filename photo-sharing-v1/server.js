@@ -1,13 +1,3 @@
-/**
- * Simple Express server for Photo Sharing App (Lab 2 - Problem 2)
- *
- * APIs:
- *   GET /test/info          - Returns schemaInfo
- *   GET /user/list          - Returns list of all users
- *   GET /user/:id           - Returns user object by ID
- *   GET /photosOfUser/:id   - Returns photos of user by ID
- */
-
 const express = require("express");
 const path = require("path");
 

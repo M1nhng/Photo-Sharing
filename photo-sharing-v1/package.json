@@ -20,13 +20,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "start:all": "concurrently \"node server.js\" \"react-scripts start\"",
-    "server": "node server.js",
+    "server:legacy": "node server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:3001",
+  "proxy": "http://localhost:8081",
   "eslintConfig": {
     "extends": [
       "react-app",
