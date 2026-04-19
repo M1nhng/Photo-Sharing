@@ -1,0 +1,18 @@
+{
+  "$schema": "https://codesandbox.io/schemas/tasks.json",
+  "tasks": {
+    "install": {
+      "name": "Install Dependencies",
+      "command": "npm install",
+      "runAtStart": true
+    },
+    "start": {
+      "name": "Start React App",
+      "command": "npm start",
+      "runAtStart": true,
+      "preview": {
+        "port": 3000
+      }
+    }
+  }
+}
