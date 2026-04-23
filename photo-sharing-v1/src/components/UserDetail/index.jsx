@@ -11,15 +11,26 @@ import fetchModel from "../../lib/fetchModelData";
 function UserDetail({ setTopBarContext }) {
   const { userId } = useParams();
   const [user, setUser] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchModel(`/user/${userId}`).then((data) => {
-      setUser(data.data);
-      if (setTopBarContext) {
-        setTopBarContext(`${data.data.first_name} ${data.data.last_name}`);
-      }
-    });
+    setError("");
+    fetchModel(`/user/${userId}`)
+      .then((data) => {
+        setUser(data.data);
+        if (setTopBarContext) {
+          setTopBarContext(`${data.data.first_name} ${data.data.last_name}`);
+        }
+      })
+      .catch((err) => {
+        setUser(null);
+        setError(err.message || "Cannot load user details");
+      });
   }, [userId, setTopBarContext]);
+
+  if (error) {
+    return <Typography color="error">{error}</Typography>;
+  }
 
   if (!user) {
     return <Typography>Loading...</Typography>;

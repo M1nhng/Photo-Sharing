@@ -11,7 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import "./styles.css";
-import fetchModel from "../../lib/fetchModelData";
+import fetchModel, { buildApiUrl } from "../../lib/fetchModelData";
 
 /**
  * Format a date string to a user-friendly format.
@@ -35,20 +35,27 @@ function UserPhotos({ setTopBarContext, advancedFeatures }) {
   const { userId } = useParams();
   const [photos, setPhotos] = useState([]);
   const [userName, setUserName] = useState("");
+  const [error, setError] = useState("");
   // For advanced mode: track current photo index via URL or state
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    fetchModel(`/photosOfUser/${userId}`).then((data) => {
-      setPhotos(data.data);
-    });
-    fetchModel(`/user/${userId}`).then((data) => {
-      const name = `${data.data.first_name} ${data.data.last_name}`;
-      setUserName(name);
-      if (setTopBarContext) {
-        setTopBarContext(`Photos of ${name}`);
-      }
-    });
+    setError("");
+
+    Promise.all([fetchModel(`/photosOfUser/${userId}`), fetchModel(`/user/${userId}`)])
+      .then(([photosData, userData]) => {
+        setPhotos(photosData.data);
+
+        const name = `${userData.data.first_name} ${userData.data.last_name}`;
+        setUserName(name);
+        if (setTopBarContext) {
+          setTopBarContext(`Photos of ${name}`);
+        }
+      })
+      .catch((err) => {
+        setError(err.message || "Cannot load photos");
+        setPhotos([]);
+      });
   }, [userId, setTopBarContext]);
 
   // Reset index when switching users or mode
@@ -59,7 +66,7 @@ function UserPhotos({ setTopBarContext, advancedFeatures }) {
   if (!photos.length) {
     return (
       <div className="userphotos-container">
-        <Typography>No photos found for this user.</Typography>
+        <Typography>{error || "No photos found for this user."}</Typography>
       </div>
     );
   }
@@ -123,7 +130,7 @@ function PhotoCard({ photo }) {
     <Card className="photo-card" elevation={2}>
       <CardMedia
         component="img"
-        image={`/images/${photo.file_name}`}
+          image={buildApiUrl(`/images/${photo.file_name}`)}
         alt={photo.file_name}
         className="photo-img"
       />

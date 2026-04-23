@@ -17,11 +17,16 @@ import fetchModel from "../../lib/fetchModelData";
  */
 function UserList() {
   const [users, setUsers] = useState([]);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    fetchModel("/user/list").then((data) => {
-      setUsers(data.data);
-    });
+    fetchModel("/user/list")
+      .then((data) => {
+        setUsers(data.data);
+      })
+      .catch((err) => {
+        setError(err.message || "Cannot load users");
+      });
   }, []);
 
   return (
@@ -30,6 +35,11 @@ function UserList() {
         Users
       </Typography>
       <Divider />
+      {error ? (
+        <Typography color="error" sx={{ mt: 1 }}>
+          {error}
+        </Typography>
+      ) : null}
       <List component="nav" className="userlist-list">
         {users.map((user) => (
           <React.Fragment key={user._id}>

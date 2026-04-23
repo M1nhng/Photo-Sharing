@@ -2,7 +2,7 @@ import './App.css';
 
 import React, { useState } from "react";
 import { Grid, Paper } from "@mui/material";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Navigate, Route, Routes } from "react-router-dom";
 
 import TopBar from "./components/TopBar";
 import UserDetail from "./components/UserDetail";
@@ -33,6 +33,7 @@ const App = () => {
           <Grid item sm={9}>
             <Paper className="main-grid-item">
               <Routes>
+                <Route path="/" element={<Navigate to="/users" replace />} />
                 <Route
                   path="/users/:userId"
                   element={<UserDetail setTopBarContext={setTopBarContext} />}
